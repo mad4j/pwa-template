@@ -74,44 +74,56 @@
         /* Main Content Area */
         .main-content {
             flex: 1;
-            overflow-y: auto;
+            overflow: hidden;
             padding: 20px;
             background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
 
         .content-card {
             background: rgba(255, 255, 255, 0.9);
             border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 20px;
+            padding: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(10px);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 0; /* Importante per flexbox */
         }
 
         .card-title {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
             color: #333;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
 
         .card-text {
             color: #666;
-            line-height: 1.6;
+            line-height: 1.5;
             margin-bottom: 15px;
+            font-size: 14px;
+            flex: 1;
+            display: flex;
+            align-items: center;
         }
 
         .action-btn {
             background: linear-gradient(45deg, #667eea, #764ba2);
             color: white;
             border: none;
-            padding: 12px 24px;
+            padding: 10px 20px;
             border-radius: 25px;
             font-weight: 600;
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
-            margin-right: 10px;
-            margin-bottom: 10px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            font-size: 14px;
         }
 
         .action-btn:hover {
@@ -182,14 +194,52 @@
         @media (max-width: 480px) {
             .main-content {
                 padding: 15px;
+                gap: 10px;
             }
             
             .content-card {
-                padding: 20px;
+                padding: 15px;
             }
             
             .card-title {
-                font-size: 20px;
+                font-size: 18px;
+                margin-bottom: 8px;
+            }
+            
+            .card-text {
+                font-size: 13px;
+                line-height: 1.4;
+            }
+            
+            .action-btn {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+        }
+
+        @media (max-height: 600px) {
+            .main-content {
+                padding: 10px;
+                gap: 8px;
+            }
+            
+            .content-card {
+                padding: 12px;
+            }
+            
+            .card-title {
+                font-size: 16px;
+                margin-bottom: 6px;
+            }
+            
+            .card-text {
+                font-size: 12px;
+                margin-bottom: 10px;
+            }
+            
+            .action-btn {
+                padding: 6px 12px;
+                font-size: 12px;
             }
         }
 
@@ -217,32 +267,31 @@
                 <h2 class="card-title">Benvenuto!</h2>
                 <p class="card-text">
                     Questa è una Progressive Web App di esempio che utilizza tutto lo spazio disponibile 
-                    del display mobile. L'app è ottimizzata per dispositivi mobili e supporta le 
-                    funzionalità PWA.
+                    del display mobile senza scroll.
                 </p>
-                <button class="action-btn" onclick="loadContent('home')">Inizia</button>
-                <button class="action-btn" onclick="loadContent('features')">Funzionalità</button>
+                <div>
+                    <button class="action-btn" onclick="loadContent('home')">Inizia</button>
+                    <button class="action-btn" onclick="loadContent('features')">Funzionalità</button>
+                </div>
             </div>
 
             <div class="content-card">
                 <h2 class="card-title">Caratteristiche</h2>
                 <p class="card-text">
-                    • Layout responsive che si adatta a tutti i dispositivi<br>
-                    • Utilizzo completo del display con safe areas<br>
-                    • Design moderno con effetti glassmorphism<br>
-                    • Supporto per modalità standalone<br>
-                    • Ottimizzata per le prestazioni mobile
+                    Layout responsive • Utilizzo completo del display • Design moderno • Modalità standalone
                 </p>
             </div>
 
             <div class="content-card">
-                <h2 class="card-title">Funzionalità PWA</h2>
+                <h2 class="card-title">PWA Status</h2>
                 <p class="card-text" id="pwaStatus">
                     Controllando le funzionalità PWA...
                 </p>
-                <button class="action-btn" onclick="installPWA()" id="installBtn" style="display: none;">
-                    Installa App
-                </button>
+                <div>
+                    <button class="action-btn" onclick="installPWA()" id="installBtn" style="display: none;">
+                        Installa App
+                    </button>
+                </div>
             </div>
         </main>
 
@@ -336,12 +385,14 @@
                         content = `
                             <div class="content-card">
                                 <h2 class="card-title">Dashboard</h2>
-                                <p class="card-text">Benvenuto nella tua dashboard personale. Qui puoi vedere un riepilogo delle tue attività.</p>
-                                <button class="action-btn" onclick="showNotification()">Mostra Notifica</button>
+                                <p class="card-text">Benvenuto nella tua dashboard personale.</p>
+                                <div>
+                                    <button class="action-btn" onclick="showNotification()">Notifica</button>
+                                </div>
                             </div>
                             <div class="content-card">
                                 <h2 class="card-title">Statistiche</h2>
-                                <p class="card-text">📊 Sessioni oggi: 5<br>⏱️ Tempo totale: 2h 30m<br>🎯 Obiettivo: 80% completato</p>
+                                <p class="card-text">📊 Sessioni: 5 • ⏱️ Tempo: 2h 30m • 🎯 Obiettivo: 80%</p>
                             </div>
                         `;
                         break;
@@ -349,18 +400,22 @@
                         content = `
                             <div class="content-card">
                                 <h2 class="card-title">Ricerca</h2>
-                                <input type="text" placeholder="Cosa stai cercando?" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 15px;">
-                                <p class="card-text">Risultati di ricerca verranno mostrati qui.</p>
+                                <p class="card-text">Cosa stai cercando?</p>
+                                <div>
+                                    <input type="text" placeholder="Inserisci termine..." style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px;">
+                                </div>
+                            </div>
+                            <div class="content-card">
+                                <h2 class="card-title">Risultati</h2>
+                                <p class="card-text">I risultati di ricerca appariranno qui.</p>
                             </div>
                         `;
                         break;
                     case 'notifications':
                         content = `
                             <div class="content-card">
-                                <h2 class="card-title">Notifiche</h2>
-                                <p class="card-text">🔔 Nuova funzionalità disponibile - 2 min fa</p>
-                                <p class="card-text">📱 App aggiornata alla versione 1.2 - 1 ora fa</p>
-                                <p class="card-text">🎉 Benvenuto nella PWA! - 1 giorno fa</p>
+                                <h2 class="card-title">Notifiche Recenti</h2>
+                                <p class="card-text">🔔 Nuova funzionalità • 📱 App aggiornata • 🎉 Benvenuto!</p>
                             </div>
                         `;
                         break;
@@ -368,16 +423,18 @@
                         content = `
                             <div class="content-card">
                                 <h2 class="card-title">Il Tuo Profilo</h2>
-                                <p class="card-text">👤 Nome: Utente Demo<br>📧 Email: demo@example.com<br>📱 Dispositivo: ${navigator.userAgent.includes('Mobile') ? 'Mobile' : 'Desktop'}</p>
-                                <button class="action-btn" onclick="toggleTheme()">Cambia Tema</button>
+                                <p class="card-text">👤 Utente Demo • 📧 demo@example.com • 📱 ${navigator.userAgent.includes('Mobile') ? 'Mobile' : 'Desktop'}</p>
+                                <div>
+                                    <button class="action-btn" onclick="toggleTheme()">Cambia Tema</button>
+                                </div>
                             </div>
                         `;
                         break;
                     default:
                         content = `
                             <div class="content-card">
-                                <h2 class="card-title">Contenuto ${section}</h2>
-                                <p class="card-text">Contenuto per la sezione ${section} caricato dinamicamente.</p>
+                                <h2 class="card-title">Sezione ${section}</h2>
+                                <p class="card-text">Contenuto per la sezione ${section}.</p>
                             </div>
                         `;
                 }
