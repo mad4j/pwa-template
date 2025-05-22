@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>La Mia PWA</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#2563eb">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="La Mia PWA">
+    
+    <!-- Manifest -->
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkxhIE1pYSBQV0EiLAogICJzaG9ydF9uYW1lIjogIk15UFdBIiwKICAic3RhcnRfdXJsIjogIi8iLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiNmZmZmZmYiLAogICJ0aGVtZV9jb2xvciI6ICIjMjU2M2ViIiwKICAiaWNvbnMiOiBbCiAgICB7CiAgICAgICJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCNGJXeHVjejBpYUhSMGNEb3ZMM2QzZHk1M00zUnZjbWN2TWpBd01DOXpkbWNpSUhacFpYZENiM2c5SWpBZ01DQTFNVElnTlRFeUlpQjNhV1IwYUQwaU5URXlJaUJvWldsbmFIUTlJalV4TWlJK1BHTnBjbU5zWlNCamVEMGlNalUySWlCamVUMGlNalUySWlCeVBTSXlOVFlpSUdacGJHdHpJalF4TURFNU1ERXNJa1pHUmtaR1JpSWdMejQ4TDNOMlp6ND0iLAogICAgICAic2l6ZXMiOiAiNTEyeDUxMiIsCiAgICAgICJ0eXBlIjogImltYWdlL3N2Zyt4bWwiCiAgICB9CiAgXQp9">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            overflow: hidden;
+        }
+
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            height: 100dvh; /* Dynamic viewport height per dispositivi mobili */
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        /* Header */
+        .app-header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: env(safe-area-inset-top, 20px) 20px 15px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            flex-shrink: 0;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: white;
+        }
+
+        .app-title {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .menu-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 5px;
+            transition: background 0.2s;
+        }
+
+        .menu-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Main Content Area */
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .content-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .card-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .card-text {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .action-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Footer */
+        .app-footer {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 15px 20px calc(env(safe-area-inset-bottom, 0px) + 15px);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            flex-shrink: 0;
+        }
+
+        .footer-nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            padding: 8px;
+            border-radius: 10px;
+            transition: background 0.2s;
+            font-size: 12px;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .nav-icon {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            .main-content {
+                padding: 15px;
+            }
+            
+            .content-card {
+                padding: 20px;
+            }
+            
+            .card-title {
+                font-size: 20px;
+            }
+        }
+
+        /* Status bar style for iOS */
+        @supports (-webkit-appearance: none) {
+            .app-header {
+                padding-top: max(env(safe-area-inset-top), 20px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1 class="app-title">La Mia PWA</h1>
+                <button class="menu-btn" onclick="toggleMenu()">☰</button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content" id="mainContent">
+            <div class="content-card">
+                <h2 class="card-title">Benvenuto!</h2>
+                <p class="card-text">
+                    Questa è una Progressive Web App di esempio che utilizza tutto lo spazio disponibile 
+                    del display mobile. L'app è ottimizzata per dispositivi mobili e supporta le 
+                    funzionalità PWA.
+                </p>
+                <button class="action-btn" onclick="loadContent('home')">Inizia</button>
+                <button class="action-btn" onclick="loadContent('features')">Funzionalità</button>
+            </div>
+
+            <div class="content-card">
+                <h2 class="card-title">Caratteristiche</h2>
+                <p class="card-text">
+                    • Layout responsive che si adatta a tutti i dispositivi<br>
+                    • Utilizzo completo del display con safe areas<br>
+                    • Design moderno con effetti glassmorphism<br>
+                    • Supporto per modalità standalone<br>
+                    • Ottimizzata per le prestazioni mobile
+                </p>
+            </div>
+
+            <div class="content-card">
+                <h2 class="card-title">Funzionalità PWA</h2>
+                <p class="card-text" id="pwaStatus">
+                    Controllando le funzionalità PWA...
+                </p>
+                <button class="action-btn" onclick="installPWA()" id="installBtn" style="display: none;">
+                    Installa App
+                </button>
+            </div>
+        </main>
+
+        <!-- Footer Navigation -->
+        <footer class="app-footer">
+            <nav class="footer-nav">
+                <a href="#" class="nav-item active" onclick="setActiveTab(this, 'home')">
+                    <span class="nav-icon">🏠</span>
+                    <span>Home</span>
+                </a>
+                <a href="#" class="nav-item" onclick="setActiveTab(this, 'search')">
+                    <span class="nav-icon">🔍</span>
+                    <span>Cerca</span>
+                </a>
+                <a href="#" class="nav-item" onclick="setActiveTab(this, 'notifications')">
+                    <span class="nav-icon">🔔</span>
+                    <span>Notifiche</span>
+                </a>
+                <a href="#" class="nav-item" onclick="setActiveTab(this, 'profile')">
+                    <span class="nav-icon">👤</span>
+                    <span>Profilo</span>
+                </a>
+            </nav>
+        </footer>
+    </div>
+
+    <script>
+        let deferredPrompt;
+        let currentContent = 'home';
+
+        // Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('data:text/javascript;base64,Y29uc3QgQ0FDSEVfTkFNRSA9ICdteS1wd2EtdjEnOwpjb25zdCB1cmxzVG9DYWNoZSA9IFsKICAnLycsCiAgJy9pbmRleC5odG1sJwpdOwoKc2VsZi5hZGRFdmVudExpc3RlbmVyKCdpbnN0YWxsJywgZXZlbnQgPT4gewogIGV2ZW50LndhaXRVbnRpbCgKICAgIGNhY2hlcy5vcGVuKENBQ0hFX05BTUUpCiAgICAgIC50aGVuKGNhY2hlID0+IGNhY2hlLmFkZEFsbCh1cmxzVG9DYWNoZSkpCiAgKTsKfSk7CgpzZWxmLmFkZEV2ZW50TGlzdGVuZXIoJ2ZldGNoJywgZXZlbnQgPT4gewogIGV2ZW50LnJlc3BvbmRXaXRoKAogICAgY2FjaGVzLm1hdGNoKGV2ZW50LnJlcXVlc3QpCiAgICAgIC50aGVuKHJlc3BvbnNlID0+IHJlc3BvbnNlIHx8IGZldGNoKGV2ZW50LnJlcXVlc3QpKQogICk7Cn0pOw==')
+                .then(registration => {
+                    console.log('SW registrato:', registration);
+                })
+                .catch(error => {
+                    console.log('SW registration fallita:', error);
+                });
+            });
+        }
+
+        // PWA Install Prompt
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('installBtn').style.display = 'inline-block';
+            updatePWAStatus('App pronta per l\'installazione!');
+        });
+
+        function installPWA() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        updatePWAStatus('App installata con successo!');
+                    }
+                    deferredPrompt = null;
+                    document.getElementById('installBtn').style.display = 'none';
+                });
+            }
+        }
+
+        function updatePWAStatus(message) {
+            document.getElementById('pwaStatus').textContent = message;
+        }
+
+        // Navigation
+        function setActiveTab(element, tab) {
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            element.classList.add('active');
+            loadContent(tab);
+        }
+
+        function loadContent(section) {
+            const mainContent = document.getElementById('mainContent');
+            currentContent = section;
+            
+            // Show loading
+            mainContent.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+            
+            // Simulate content loading
+            setTimeout(() => {
+                let content = '';
+                
+                switch(section) {
+                    case 'home':
+                        content = `
+                            <div class="content-card">
+                                <h2 class="card-title">Dashboard</h2>
+                                <p class="card-text">Benvenuto nella tua dashboard personale. Qui puoi vedere un riepilogo delle tue attività.</p>
+                                <button class="action-btn" onclick="showNotification()">Mostra Notifica</button>
+                            </div>
+                            <div class="content-card">
+                                <h2 class="card-title">Statistiche</h2>
+                                <p class="card-text">📊 Sessioni oggi: 5<br>⏱️ Tempo totale: 2h 30m<br>🎯 Obiettivo: 80% completato</p>
+                            </div>
+                        `;
+                        break;
+                    case 'search':
+                        content = `
+                            <div class="content-card">
+                                <h2 class="card-title">Ricerca</h2>
+                                <input type="text" placeholder="Cosa stai cercando?" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 15px;">
+                                <p class="card-text">Risultati di ricerca verranno mostrati qui.</p>
+                            </div>
+                        `;
+                        break;
+                    case 'notifications':
+                        content = `
+                            <div class="content-card">
+                                <h2 class="card-title">Notifiche</h2>
+                                <p class="card-text">🔔 Nuova funzionalità disponibile - 2 min fa</p>
+                                <p class="card-text">📱 App aggiornata alla versione 1.2 - 1 ora fa</p>
+                                <p class="card-text">🎉 Benvenuto nella PWA! - 1 giorno fa</p>
+                            </div>
+                        `;
+                        break;
+                    case 'profile':
+                        content = `
+                            <div class="content-card">
+                                <h2 class="card-title">Il Tuo Profilo</h2>
+                                <p class="card-text">👤 Nome: Utente Demo<br>📧 Email: demo@example.com<br>📱 Dispositivo: ${navigator.userAgent.includes('Mobile') ? 'Mobile' : 'Desktop'}</p>
+                                <button class="action-btn" onclick="toggleTheme()">Cambia Tema</button>
+                            </div>
+                        `;
+                        break;
+                    default:
+                        content = `
+                            <div class="content-card">
+                                <h2 class="card-title">Contenuto ${section}</h2>
+                                <p class="card-text">Contenuto per la sezione ${section} caricato dinamicamente.</p>
+                            </div>
+                        `;
+                }
+                
+                mainContent.innerHTML = content;
+            }, 500);
+        }
+
+        function toggleMenu() {
+            alert('Menu aperto! Qui potresti implementare un menu laterale o modale.');
+        }
+
+        function showNotification() {
+            if ('Notification' in window) {
+                if (Notification.permission === 'granted') {
+                    new Notification('Ciao dalla PWA!', {
+                        body: 'Questa è una notifica di esempio.',
+                        icon: 'data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgNTEyIDUxMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyNTYiIGN5PSIyNTYiIHI9IjI1NiIgZmlsbD0iIzQxOTE5MSIvPjwvc3ZnPg=='
+                    });
+                } else if (Notification.permission !== 'denied') {
+                    Notification.requestPermission().then(permission => {
+                        if (permission === 'granted') {
+                            new Notification('Notifiche abilitate!');
+                        }
+                    });
+                }
+            } else {
+                alert('Le notifiche non sono supportate in questo browser.');
+            }
+        }
+
+        function toggleTheme() {
+            const container = document.querySelector('.app-container');
+            const isDark = container.style.background.includes('764ba2');
+            
+            if (isDark) {
+                container.style.background = 'linear-gradient(135deg, #ff9a56 0%, #ff6b95 100%)';
+            } else {
+                container.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updatePWAStatus('PWA caricata e pronta!');
+            
+            // Check if running as standalone app
+            if (window.matchMedia('(display-mode: standalone)').matches) {
+                updatePWAStatus('App in esecuzione in modalità standalone!');
+            }
+        });
+
+        // Prevent zoom on double tap
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function (event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+    </script>
+</body>
+</html>
