@@ -32,15 +32,14 @@
             flex-direction: column;
             height: 100vh;
             height: 100dvh; /* Dynamic viewport height per dispositivi mobili */
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #f5f5f5;
         }
 
         /* Header */
         .app-header {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+            background: #1976d2;
             padding: env(safe-area-inset-top, 20px) 20px 15px 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             flex-shrink: 0;
         }
 
@@ -62,50 +61,63 @@
             color: white;
             font-size: 24px;
             cursor: pointer;
-            padding: 5px;
-            border-radius: 5px;
-            transition: background 0.2s;
+            padding: 8px;
+            border-radius: 50%;
+            transition: background-color 0.2s;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .menu-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .menu-btn:active {
+            background-color: rgba(255, 255, 255, 0.2);
         }
 
         /* Main Content Area */
         .main-content {
             flex: 1;
             overflow: hidden;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.05);
+            padding: 16px;
+            background: #f5f5f5;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
         }
 
         .content-card {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
             min-height: 0; /* Importante per flexbox */
+            transition: box-shadow 0.2s ease;
+        }
+
+        .content-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
         .card-title {
-            font-size: 22px;
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 10px;
+            font-size: 20px;
+            font-weight: 500;
+            color: #212121;
+            margin-bottom: 8px;
         }
 
         .card-text {
-            color: #666;
+            color: #757575;
             line-height: 1.5;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             font-size: 14px;
             flex: 1;
             display: flex;
@@ -113,31 +125,37 @@
         }
 
         .action-btn {
-            background: linear-gradient(45deg, #667eea, #764ba2);
+            background: #1976d2;
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-weight: 600;
+            padding: 10px 16px;
+            border-radius: 4px;
+            font-weight: 500;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: background-color 0.2s, box-shadow 0.2s;
             margin-right: 8px;
             margin-bottom: 8px;
             font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .action-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            background: #1565c0;
+            box-shadow: 0 2px 4px rgba(25, 118, 210, 0.3);
+        }
+
+        .action-btn:active {
+            background: #0d47a1;
         }
 
         /* Footer */
         .app-footer {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 15px 20px calc(env(safe-area-inset-bottom, 0px) + 15px);
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            background: #ffffff;
+            padding: 8px 0 calc(env(safe-area-inset-bottom, 0px) + 8px);
+            border-top: 1px solid #e0e0e0;
             flex-shrink: 0;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .footer-nav {
@@ -150,22 +168,27 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            color: white;
+            color: #757575;
             text-decoration: none;
-            padding: 8px;
-            border-radius: 10px;
-            transition: background 0.2s;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: color 0.2s, background-color 0.2s;
             font-size: 12px;
+            font-weight: 500;
+            flex: 1;
         }
 
-        .nav-item:hover,
+        .nav-item:hover {
+            background-color: rgba(25, 118, 210, 0.08);
+            color: #1976d2;
+        }
+
         .nav-item.active {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
+            color: #1976d2;
         }
 
         .nav-icon {
-            font-size: 20px;
+            font-size: 22px;
             margin-bottom: 4px;
         }
 
@@ -180,9 +203,9 @@
         .spinner {
             width: 40px;
             height: 40px;
-            border: 4px solid rgba(255, 255, 255, 0.3);
+            border: 4px solid #e0e0e0;
             border-radius: 50%;
-            border-top-color: white;
+            border-top-color: #1976d2;
             animation: spin 1s ease-in-out infinite;
         }
 
@@ -193,33 +216,7 @@
         /* Responsive adjustments */
         @media (max-width: 480px) {
             .main-content {
-                padding: 15px;
-                gap: 10px;
-            }
-            
-            .content-card {
-                padding: 15px;
-            }
-            
-            .card-title {
-                font-size: 18px;
-                margin-bottom: 8px;
-            }
-            
-            .card-text {
-                font-size: 13px;
-                line-height: 1.4;
-            }
-            
-            .action-btn {
-                padding: 8px 16px;
-                font-size: 13px;
-            }
-        }
-
-        @media (max-height: 600px) {
-            .main-content {
-                padding: 10px;
+                padding: 12px;
                 gap: 8px;
             }
             
@@ -228,19 +225,92 @@
             }
             
             .card-title {
-                font-size: 16px;
+                font-size: 18px;
                 margin-bottom: 6px;
             }
             
             .card-text {
-                font-size: 12px;
-                margin-bottom: 10px;
+                font-size: 13px;
+                line-height: 1.4;
             }
             
             .action-btn {
-                padding: 6px 12px;
+                padding: 8px 12px;
+                font-size: 13px;
+            }
+        }
+
+        @media (max-height: 600px) {
+            .main-content {
+                padding: 8px;
+                gap: 6px;
+            }
+            
+            .content-card {
+                padding: 10px;
+            }
+            
+            .card-title {
+                font-size: 16px;
+                margin-bottom: 4px;
+            }
+            
+            .card-text {
+                font-size: 12px;
+                margin-bottom: 8px;
+            }
+            
+            .action-btn {
+                padding: 6px 10px;
                 font-size: 12px;
             }
+        }
+
+        /* Floating Action Button Style */
+        .fab {
+            position: fixed;
+            bottom: 80px;
+            right: 16px;
+            width: 56px;
+            height: 56px;
+            background: #1976d2;
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fab:hover {
+            background: #1565c0;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+            transform: scale(1.05);
+        }
+
+        /* Input Material Style */
+        .material-input {
+            width: 100%;
+            padding: 12px 0 8px 0;
+            border: none;
+            border-bottom: 2px solid #e0e0e0;
+            background: transparent;
+            font-size: 16px;
+            color: #212121;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .material-input:focus {
+            border-bottom-color: #1976d2;
+        }
+
+        .material-input::placeholder {
+            color: #9e9e9e;
         }
 
         /* Status bar style for iOS */
@@ -266,8 +336,7 @@
             <div class="content-card">
                 <h2 class="card-title">Benvenuto!</h2>
                 <p class="card-text">
-                    Questa è una Progressive Web App di esempio che utilizza tutto lo spazio disponibile 
-                    del display mobile senza scroll.
+                    PWA Material Design che utilizza tutto lo spazio disponibile del display mobile senza scroll.
                 </p>
                 <div>
                     <button class="action-btn" onclick="loadContent('home')">Inizia</button>
@@ -276,9 +345,9 @@
             </div>
 
             <div class="content-card">
-                <h2 class="card-title">Caratteristiche</h2>
+                <h2 class="card-title">Material Design</h2>
                 <p class="card-text">
-                    Layout responsive • Utilizzo completo del display • Design moderno • Modalità standalone
+                    Clean • Responsive • Shadows • Typography • Colors
                 </p>
             </div>
 
@@ -402,7 +471,7 @@
                                 <h2 class="card-title">Ricerca</h2>
                                 <p class="card-text">Cosa stai cercando?</p>
                                 <div>
-                                    <input type="text" placeholder="Inserisci termine..." style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px;">
+                                    <input type="text" placeholder="Inserisci termine..." class="material-input">
                                 </div>
                             </div>
                             <div class="content-card">
@@ -468,12 +537,34 @@
 
         function toggleTheme() {
             const container = document.querySelector('.app-container');
-            const isDark = container.style.background.includes('764ba2');
+            const header = document.querySelector('.app-header');
+            const footer = document.querySelector('.app-footer');
+            const cards = document.querySelectorAll('.content-card');
+            
+            const isDark = container.classList.contains('dark-theme');
             
             if (isDark) {
-                container.style.background = 'linear-gradient(135deg, #ff9a56 0%, #ff6b95 100%)';
+                // Light theme
+                container.classList.remove('dark-theme');
+                container.style.background = '#f5f5f5';
+                header.style.background = '#1976d2';
+                footer.style.background = '#ffffff';
+                footer.style.borderColor = '#e0e0e0';
+                cards.forEach(card => {
+                    card.style.background = '#ffffff';
+                    card.style.color = '#212121';
+                });
             } else {
-                container.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                // Dark theme
+                container.classList.add('dark-theme');
+                container.style.background = '#121212';
+                header.style.background = '#1f1f1f';
+                footer.style.background = '#1f1f1f';
+                footer.style.borderColor = '#333333';
+                cards.forEach(card => {
+                    card.style.background = '#1e1e1e';
+                    card.style.color = '#ffffff';
+                });
             }
         }
 
